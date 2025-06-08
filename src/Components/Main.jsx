@@ -1,12 +1,13 @@
 import experienciaImg from '../assets/img-experiencia.jpg'
 import fundadoraImg from '../assets/img-inicio.jpg'
 import info from '../assets/info.svg'
+import subir from '../assets/subir.svg'
 
 export const Main = () => {
   return (
-    <main>
+    <main className=''>
         {/* seccion de inicio */}
-      <section className="flex items-center justify-between h-creen p-20 gap-8">
+      <section className="flex items-center justify-between h-creen p-20 gap-8" >
         <div className="flex-2 flex flex-col gap-4 items-center">
           <h2 className="text-4xl font-bold text-secondary">Nuestra Fundadora</h2>
           
@@ -32,7 +33,7 @@ export const Main = () => {
       </section>
 
         {/* seccion de experiencia */}
-      <section id="experiencia" className="flex items-center justify-between h-screen p-20 gap-8">
+      <section id="experiencia" className="flex items-center justify-between h-screen p-20 gap-8" >
         <div className="flex-1">
           <img 
             src={experienciaImg} 
@@ -174,6 +175,10 @@ export const Main = () => {
           </div>
         </div>
       </section>
+      <div className="fixed bottom-5 right-5 z-10 rounded-full border border-[#d9d9d9] p-2 
+      transition duration-300 ease-in-out hover:scale-110 cursor-pointer">
+        <a href="#"><img src={subir} alt="" /></a>
+    </div>
     </main>
   )
 }
