@@ -11,18 +11,20 @@ export const MainSolicitarCita = () => {
 
   // Opciones para cada tipo de cita
   const serviciosPresencial = [
-    "Consulta Nutricional Inicial",
-    "Consulta de Seguimiento",
-    "Asesoría Alimentación Complementaria"
+    "Visita Nutricion y dietética : $90,000",
+    "Visita sucesiva de control de peso: $90,000",
+    "Asesoria para alimentacion infantil : $100,000",
+    "Consejeria de latancia materna : $100,000"
+
   ];
   const serviciosVirtual = [
-    "Consulta Nutricional Online",
-    "Asesoría Virtual para Padres",
-    "Seguimiento Virtual"
+    "Consulta en linea : $90,000  ",
+    "Asesoria para alimentacion complementaria : $90,000 ",
+    "Seguimiento Virtual "
   ];
 
   return (
-    <section className="flex flex-col gap-6 items-center py-20 px-60">
+    <section className="flex flex-col gap-6 items-center pt-15 pb-35  px-60">
       {/* Card de información de la doctora */}
       <div className="flex flex-col md:flex-row rounded-lg shadow-md border border-[#d9d9d9]  py-5 mb-8 items-center ">
         <div className="flex-1 flex justify-center ">
@@ -41,11 +43,11 @@ export const MainSolicitarCita = () => {
             calle 5 D #38 a - 35 Edf Vida Torre 1 Consultorio/731, cali.
           </div>
           <div className="text-secondary text-sm mb-2">
-            <span className="font-semibold">Teléfono personal:</span> ###########
+            <span className="font-semibold">Teléfono personal:</span> 321 7769473
           </div>
           <div className="text-secondary text-sm mb-2 flex items-center gap-2">
             <span className="font-semibold">Enlace redes sociales:</span>
-            <a href="#" target="_blank" rel="noopener noreferrer"><img src={instagram} alt="Instagram" className="w-5 h-5 inline" /></a>
+            <a href="https://www.instagram.com/mcausilnutrition/" target="_blank" rel="noopener noreferrer"><img src={instagram} alt="Instagram" className="w-5 h-5 inline" /></a>
             <a href="#" target="_blank" rel="noopener noreferrer"><img src={youtube} alt="YouTube" className="w-5 h-5 inline" /></a>
             <a href="#" target="_blank" rel="noopener noreferrer"><img src={linkedin} alt="LinkedIn" className="w-5 h-5 inline" /></a>
           </div>
@@ -61,7 +63,7 @@ export const MainSolicitarCita = () => {
         {/* Tabs */}
         <div className="flex w-full">
             <button
-            className={`px-6 py-2 font-medium focus:outline-none ${
+            className={`px-6 py-2 font-medium focus:outline-none cursor-pointer ${
                 tab === "presencial"
                 ? "border-b-4 border-primary text-primary"
                 : "text-secondary"
@@ -71,9 +73,9 @@ export const MainSolicitarCita = () => {
             VISTA PRESENCIAL
             </button>
             <button
-            className={`px-6 py-2 font-medium focus:outline-none ${
+            className={`px-6 py-2 font-medium focus:outline-none cursor-pointer ${
                 tab === "virtual"
-                ? "border-b-4 border-primary text-primary"
+                ? "border-b-4 border-primary text-primary "
                 : "text-secondary"
             }`}
             onClick={() => setTab("virtual")}
@@ -87,17 +89,16 @@ export const MainSolicitarCita = () => {
             <div className="flex flex-col md:flex-row gap-6">
             {/* Combo de servicios */}
             <div className="flex-1">
-                <label className="block mb-2 font-medium text-secondary">
+                <label className="block mb-2 font-medium text-secondary ">
                 Servicios
                 </label>
                 <select
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 cursor-pointer"
                 value={servicio}
                 onChange={e => setServicio(e.target.value)}
                 >
-                <option value="">Selecciona un servicio</option>
                 {(tab === "presencial" ? serviciosPresencial : serviciosVirtual).map((serv, idx) => (
-                    <option key={idx} value={serv}>{serv}</option>
+                    <option key={idx} value={serv} >{serv}</option>
                 ))}
                 </select>
             </div>
@@ -108,7 +109,7 @@ export const MainSolicitarCita = () => {
                 </label>
                 <input
                 type="datetime-local"
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 cursor-pointer"
                 value={fecha}
                 onChange={e => setFecha(e.target.value)}
                 />
@@ -116,7 +117,7 @@ export const MainSolicitarCita = () => {
             </div>
             <button
             type="submit"
-            className="bg-secondary text-tertiary px-6 py-2 rounded-lg w-fit hover:bg-opacity-90 transition-all"
+            className="bg-secondary text-tertiary px-6 py-2 rounded-lg w-fit hover:bg-opacity-90 transition-all cursor-pointer"
             >
             Agendar
             </button>

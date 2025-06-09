@@ -5,7 +5,7 @@ import { Footer } from "../Components/Footer"
 export const HomePage = () => {
   return (
    <>
-    <Header/>
+    <Header visibilidad_Links={true}/>
     <Main/>
     <Footer/>
    </>

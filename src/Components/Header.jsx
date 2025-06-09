@@ -3,10 +3,10 @@ import settings from '../assets/settings.svg'
 import user from '../assets/user.svg'
 import { Link } from 'react-router-dom'
 
-export const Header = () => {
+export const Header = ({visibilidad_Links, sesion}) => {
   return (
     <header className='flex py-4 bg-primary  '>
-      <div className="flex-1 flex gap-1 justify-center">
+      <Link className="flex-1 flex gap-1 justify-center" to="/">
         <img 
           className="w-[42px] h-[42px]" 
           src={logo} 
@@ -20,52 +20,84 @@ export const Header = () => {
             Nutricionista dietista
           </a>
         </div>
-      </div>
+      </Link>
       <div className='flex-2 flex items-center'>
         <nav>
           <ul className="flex gap-6">
-            <li className='hover:text-slate-50'>
-              <Link className="" to="/">
-                Inicio
-              </Link>
-            </li>
-            <li>
-              <a className="hover:text-slate-50" href="#experiencia">
-                Experiencia
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-slate-50" href="#consultorios">
-                Consultorio
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-slate-50" href="#precios">
-                Precios
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-slate-50" href="#">
-                Cursos
-              </a>
-            </li>
-            <li>
-              <Link className="hover:text-slate-50" to="/solicitar-cita">
-                Solicitar cita
-              </Link>
-            </li>
+           {
+            visibilidad_Links ? 
+              <>
+                    <li>
+                <a className="hover:text-slate-50" href="#experiencia">
+                    Experiencia
+                </a>
+                </li>
+                <li>
+                <a className="hover:text-slate-50" href="#consultorios">
+                    Consultorio
+                </a>
+                </li>
+                <li>
+                <a className="hover:text-slate-50" href="#precios">
+                    Precios
+                </a>
+                </li>
+                <li>
+                <Link className="hover:text-slate-50" to="/cursos">
+                    Cursos
+                </Link>
+                </li>
+                <li>
+                <Link className="hover:text-slate-50" to="/solicitar-cita">
+                    Solicitar cita
+                </Link>
+                </li>
+                {
+                    sesion && (
+                    <li>
+                        <Link className="hover:text-slate-50" to="/">
+                            citas agendadas
+                        </Link>
+                    </li>
+                    )
+                }
+              </>
+            :
+            <>
+                 <li>
+                    <Link className="hover:text-slate-50" to="/cursos">
+                        Cursos
+                    </Link>
+                </li>
+                <li>
+                    <Link className="hover:text-slate-50" to="/solicitar-cita">
+                        Solicitar cita
+                    </Link>
+                </li>
+                {
+                    sesion && (
+                    <li>
+                        <Link className="hover:text-slate-50" to="/">
+                            citas agendadas
+                        </Link>
+                    </li>
+                    )
+                }
+            </>
+           }
+            
           </ul>
         </nav>
       </div>
       <div className="flex-1 flex justify-center gap-2">
-        <a href="#" className="flex items-center px-2 bg-tertiary rounded-[10px]"> 
+        <Link to={'/login-user'} className="flex items-center px-2 bg-tertiary rounded-[10px]"> 
           <img className='' src={user} alt="settings" />
           <span>Iniciar sesión</span>
-        </a>
-        <a href="#" className="flex items-center px-2 bg-tertiary rounded-[10px]"> 
+        </Link>
+        <Link to={'/login-admin'} className="flex items-center px-2 bg-tertiary rounded-[10px]"> 
           <img className='w-[20px] h-[20px]' src={settings} alt="settings" />
           <span> ¿ Eres pediatra ? </span>
-        </a>
+        </Link>
       </div>
     </header>
   )

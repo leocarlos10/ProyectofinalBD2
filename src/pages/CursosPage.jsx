@@ -1,12 +1,13 @@
 import { Footer } from "../Components/Footer"
 import { Header } from "../Components/Header"
-import { MainSolicitarCita } from "../Components/MainSolicitarCita"
+import { MainCursos } from "../Components/MainCursos"
 
-export const SolicitarCita = () => {
+
+export const CursosPage = () => {
   return (
     <>
     <Header visibilidad_Links={false}/>
-    <MainSolicitarCita/>
+    <MainCursos/>
     <Footer/>
     </>
   )

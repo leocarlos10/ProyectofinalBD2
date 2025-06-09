@@ -2,6 +2,7 @@ import experienciaImg from '../assets/img-experiencia.jpg'
 import fundadoraImg from '../assets/img-inicio.jpg'
 import info from '../assets/info.svg'
 import subir from '../assets/subir.svg'
+import { Link } from 'react-router-dom'
 
 export const Main = () => {
   return (
@@ -18,9 +19,9 @@ export const Main = () => {
             Tu hijo está en las mejores manos!
           </p>
 
-          <button className="bg-secondary text-tertiary px-6 py-2 rounded-lg mt-4 w-fit transition duration-300 ease-in-out hover:scale-105 cursor-pointer ">
+          <Link to={'/solicitar-cita'} className="bg-secondary text-tertiary px-6 py-2 rounded-lg mt-4 w-fit transition duration-300 ease-in-out hover:scale-105 cursor-pointer text-center ">
             Solicitar cita
-          </button>
+          </Link>
         </div>
 
         <div className="flex-1">
@@ -52,9 +53,9 @@ export const Main = () => {
             Mi consulta es un espacio de aprendizaje y tu oportunidad para un cambio positivo en tu salud.
           </p>
           <div className='flex w-full justify-start'>
-          <button className="bg-secondary text-tertiary px-6 py-2 rounded-lg mt-4 w-fit transition duration-300 ease-in-out hover:scale-105 cursor-pointer ">
+          <Link to={'/solicitar-cita'} className="bg-secondary text-tertiary px-6 py-2 rounded-lg mt-4 w-fit transition duration-300 ease-in-out hover:scale-105 cursor-pointer text-center ">
             Solicitar cita
-          </button>
+          </Link>
           </div>
         </div>
       </section>
@@ -134,9 +135,9 @@ export const Main = () => {
             <ul className="mb-6 text-secondary">
               <li className="mb-2">• Visitas sucesivas Nutrición y Dietética</li>
             </ul>
-            <button className="bg-secondary text-tertiary px-6 py-2 rounded-lg w-full cursor-pointer">
+            <Link to={'/solicitar-cita'} className="bg-secondary text-tertiary px-6 py-2 rounded-lg w-full cursor-pointer text-center">
               Solicitar cita
-            </button>
+            </Link>
           </div>
 
           {/* Tarjeta Precensial/En línea */}
@@ -152,9 +153,9 @@ export const Main = () => {
               <li className="mb-2">• asesoría para alimentación complementaria</li>
               <li className="mb-2">• Visita Nutrición y Dietética</li>
             </ul>
-            <button className="bg-secondary text-tertiary px-6 py-2 rounded-lg w-full cursor-pointer">
+            <Link to={'/solicitar-cita'} className="bg-secondary text-tertiary px-6 py-2 rounded-lg w-full cursor-pointer text-center">
               Solicitar cita
-            </button>
+            </Link>
           </div>
 
           {/* Tarjeta En línea */}
@@ -169,9 +170,9 @@ export const Main = () => {
             <ul className="mb-6 text-secondary">
               <li className="mb-2">• Consulta en línea</li>
             </ul>
-            <button className="bg-secondary text-tertiary px-6 py-2 rounded-lg w-full cursor-pointer">
+            <Link to={'/solicitar-cita'} className="bg-secondary text-tertiary px-6 py-2 rounded-lg w-full cursor-pointer text-center">
               Solicitar cita
-            </button>
+            </Link>
           </div>
         </div>
       </section>
