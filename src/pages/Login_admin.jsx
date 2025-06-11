@@ -6,7 +6,7 @@ export const Login_admin = () => {
   return (
    <>
    <HeaderForm/>
-   <Main_loginUser/>
+   <Main_loginUser estado="admin"/>
    <Footer/>
    </>
   )

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Main_loginUser = ({estado}) => {
+
   const [nombre, setNombre] = useState("");
   const [contrasena, setContrasena] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,11 +13,18 @@ export const Main_loginUser = ({estado}) => {
     alert(`Nombre: ${nombre} \n Contraseña: ${contrasena}`);
     setNombre("");
     setContrasena("");
+
+    // antes de hacer cualquier reedireccion debemos validar el estado
+    if(estado === "user"){
+        navigate("/");       
+    } else if(estado === "admin"){
+        navigate("/admin");
+    }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <form onSubmit={handleSubmit} className=" w-[50%] p-8  rounded-lg shadow-md border border-[#d9d9d9] ">
+      <form onSubmit={handleSubmit} className=" w-[40%] p-8  rounded-lg shadow-md border border-[#d9d9d9] ">
         <div className="mb-4">
           <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">Nombre</label>
           <input

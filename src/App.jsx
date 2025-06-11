@@ -6,6 +6,10 @@ import { Login_UserPage } from './pages/Login_UserPage'
 import { Registrar_userPage } from './pages/Registrar_userPage'
 import { Login_admin } from './pages/Login_admin'
 import ScrollToTop from './Components/ScrollToTop'
+import { AdminPage } from './pages/AdminPage'
+import { CitasPage } from './pages/CitasPage'
+import { PacientesPage } from "./pages/PacientesPage"
+import { DiagnosticoPage } from './pages/DiagnosticoPage'
 
 function App() {
 
@@ -27,6 +31,10 @@ function App() {
         <Route path='/login-user' element = {<Login_UserPage/>}></Route>
         <Route path='/registrar-user' element = {<Registrar_userPage/>}></Route>
         <Route path='/login-admin' element = {<Login_admin/>}></Route>
+        <Route path='/admin' element={<AdminPage/>}></Route>
+        <Route path='/citas' element={<CitasPage/>}></Route>
+        <Route path='/pacientes' element={<PacientesPage/>}></Route>
+        <Route path='/diagnosticos' element={<DiagnosticoPage/>}></Route>
       </Routes>
     </>
   )

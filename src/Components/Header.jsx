@@ -13,10 +13,10 @@ export const Header = ({visibilidad_Links, sesion}) => {
           alt="logo" 
         />
         <div className="flex flex-col">
-          <a className='text-tertiary' href="#inicio">
+          <a className='text-tertiary'>
             Mcausilnutrition
           </a>
-          <a className='text-tertiary' href="#inicio">
+          <a className='text-tertiary'>
             Nutricionista dietista
           </a>
         </div>
