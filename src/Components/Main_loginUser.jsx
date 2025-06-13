@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UsuarioContext } from "../context/Usuario.Context";
 
 export const Main_loginUser = ({estado}) => {
 
   const [nombre, setNombre] = useState("");
   const [contrasena, setContrasena] = useState("");
   const navigate = useNavigate();
+  const {registrarUsuario} = useContext(UsuarioContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +60,7 @@ export const Main_loginUser = ({estado}) => {
                 <>
                     <div className="text-start  ">
                         <span className="text-sm">¿No tienes una cuenta? </span>
-                            <Link to="/registrar-user" className=" hover:underline text-sm">Regístrate</Link>
+                            <Link to="/registrar-user" className=" hover:underline text-sm">Regístrate aqui !</Link>
                     </div>
                 </>
             )

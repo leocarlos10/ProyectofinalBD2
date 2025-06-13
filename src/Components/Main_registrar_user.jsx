@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UsuarioContext } from "../context/Usuario.Context";
 
 export const Main_registrar_user = () => {
+
+  const {registrarUsuario} = useContext(UsuarioContext);
+  const navigate = useNavigate();
   const [usuario, setUsuario] = useState({
     cedula: "",
     nombre: "",
@@ -9,9 +13,18 @@ export const Main_registrar_user = () => {
     correo: "",
     telefono: "",
     fechaNacimiento: "",
-    ciudad: ""
+    ciudad: "",
+    pass: ""
   });
 
+  /** 
+   * El metodo handleChange es el encargado de capturar los cambios en los inputs y guardarlos en la variable de estado
+   * @param e - este es el objeto del evento, de el podemos 
+   * extraer dos atributos que son el name, y el value de un input eso lo hacemos con un destructuring,
+   * que luego es utilizada en el metodo setProyecto
+   * @param prev - parametro por defecto que contiene el valor anterior del objeto inicializado en la variable de estado,
+   * este objeto luego es utilizado para agregar lo que ya estaba y modificar el atributo con el valor nuevo.
+  */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUsuario((prev) => ({
@@ -22,18 +35,26 @@ export const Main_registrar_user = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(
-      `Cédula: ${usuario.cedula}\nNombre: ${usuario.nombre}\nApellido: ${usuario.apellido}\nCorreo: ${usuario.correo}\nTeléfono: ${usuario.telefono}\nFecha de nacimiento: ${usuario.fechaNacimiento}\nCiudad: ${usuario.ciudad}`
-    );
-    setUsuario({
-      cedula: "",
-      nombre: "",
-      apellido: "",
-      correo: "",
-      telefono: "",
-      fechaNacimiento: "",
-      ciudad: ""
-    });
+    const hayVacios = Object.values(usuario).some(value => value === "" || value === null);
+    if(!hayVacios){
+      console.log(usuario);
+      registrarUsuario(usuario);
+      setUsuario({
+        cedula: "",
+        nombre: "",
+        apellido: "",
+        correo: "",
+        telefono: "",
+        fechaNacimiento: "",
+        ciudad: "",
+        pass: ""
+      });
+
+      navigate("/login-user");
+    } else {
+      alert("Por favor, complete todos los campos obligatorios");
+    }
+    
   };
 
   return (
@@ -125,7 +146,20 @@ export const Main_registrar_user = () => {
             type="text"
             value={usuario.ciudad}
             onChange={handleChange}
-            placeholder="ciudad"
+            placeholder="ciudad*"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-primary"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="pass" className="block text-sm font-medium text-gray-700">Contraseña</label>
+          <input
+            id="pass"
+            name="pass"
+            type="password"
+            value={usuario.pass}
+            onChange={handleChange}
+            placeholder="password*"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-primary"
             required
           />
