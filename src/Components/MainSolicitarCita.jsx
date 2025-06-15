@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import experienciaImg from '../assets/img-experiencia.jpg';
 import instagram from '../assets/instagram_light.svg';
 import youtube from '../assets/youtube.svg';
 import linkedin from '../assets/linkedin.svg';
+import { useNavigate } from "react-router-dom";
+import { CitaContext } from "../context/Cita.Context";
+import { useEffect } from "react";
 
 export const MainSolicitarCita = () => {
-  const [tab, setTab] = useState("presencial");
-  const [servicio, setServicio] = useState("");
+
+  const [tab, setTab] = useState("PRECENSIAL");
+  const [servicio, setServicio] = useState();
   const [fecha, setFecha] = useState("");
+  const {actualizarCita} = useContext(CitaContext);
+  const navigate = useNavigate();
 
   // Opciones para cada tipo de cita
   const serviciosPresencial = [
@@ -20,8 +26,41 @@ export const MainSolicitarCita = () => {
   const serviciosVirtual = [
     "Consulta en linea : $90,000  ",
     "Asesoria para alimentacion complementaria : $90,000 ",
-    "Seguimiento Virtual "
+    "Seguimiento Virtual: $90,000 "
   ];
+
+  /* En caso de que el usuario no seleccione un servicio se le asigna el primer servicio de la lista */
+  useEffect(() => {
+    setServicio(tab == "PRECENSIAL" ? serviciosPresencial[0] : serviciosVirtual[0]);
+  }, [tab]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const datos = {
+      fechaHora: fecha,
+      tipo_cita: tab,
+      servicio: servicio,
+      estado: 'pendiente'
+    }
+    const estaVacio = Object.values(datos).some(value => value === '' || value === null);
+    
+    if(!estaVacio){
+      // luego verficamos si esta logueado
+      const token = localStorage.getItem('swtU');
+      if(token){
+        actualizarCita(datos);
+        navigate("/form-paciente");
+      }else{
+        alert("Por favor, inicie sesión para agendar una cita");
+        navigate("/login-user");
+      }
+      
+    }else{
+      alert("Por favor, complete todos los campos");
+    }
+    
+  
+  }
 
   return (
     <section className="flex flex-col gap-6 items-center pt-15 pb-35  px-60">
@@ -64,21 +103,21 @@ export const MainSolicitarCita = () => {
         <div className="flex w-full">
             <button
             className={`px-6 py-2 font-medium focus:outline-none cursor-pointer ${
-                tab === "presencial"
+                tab === "PRECENSIAL"
                 ? "border-b-4 border-primary text-primary"
                 : "text-secondary"
             }`}
-            onClick={() => setTab("presencial")}
+            onClick={() => setTab("PRECENSIAL")}
             >
             VISTA PRESENCIAL
             </button>
             <button
             className={`px-6 py-2 font-medium focus:outline-none cursor-pointer ${
-                tab === "virtual"
+                tab === "VIRTUAL"
                 ? "border-b-4 border-primary text-primary "
                 : "text-secondary"
             }`}
-            onClick={() => setTab("virtual")}
+            onClick={() => setTab("VIRTUAL")}
             >
             CONSULTA EN LÍNEA
             </button>
@@ -94,10 +133,10 @@ export const MainSolicitarCita = () => {
                 </label>
                 <select
                 className="w-full border rounded px-3 py-2 cursor-pointer"
-                value={servicio}
+                value={ servicio}
                 onChange={e => setServicio(e.target.value)}
                 >
-                {(tab === "presencial" ? serviciosPresencial : serviciosVirtual).map((serv, idx) => (
+                {(tab === "PRECENSIAL" ? serviciosPresencial : serviciosVirtual).map((serv, idx) => (
                     <option key={idx} value={serv} >{serv}</option>
                 ))}
                 </select>
@@ -116,8 +155,8 @@ export const MainSolicitarCita = () => {
             </div>
             </div>
             <button
-            type="submit"
             className="bg-secondary text-tertiary px-6 py-2 rounded-lg w-fit hover:bg-opacity-90 transition-all cursor-pointer"
+            onClick={handleSubmit}
             >
             Agendar
             </button>

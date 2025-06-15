@@ -12,12 +12,12 @@ export const HeaderForm =  () => {
             alt="logo" 
             />
             <div className="flex flex-col">
-            <a className='text-tertiary' href="#inicio">
+            <div className='text-tertiary' >
                 Mcausilnutrition
-            </a>
-            <a className='text-tertiary' href="#inicio">
+            </div>
+            <div className='text-tertiary' >
                 Nutricionista dietista
-            </a>
+            </div>
             </div>
         </Link>  
         </div>

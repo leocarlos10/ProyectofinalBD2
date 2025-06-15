@@ -13,8 +13,7 @@ export const Main = () => {
           <h2 className="text-4xl font-bold text-secondary">Nuestra Fundadora</h2>
           
           <p className="text-secondary leading-relaxed px-30">
-            Bienvenida! la Dra. Martha Lucia Ochoa Especialista en nutrición y puericultura infantil, 
-            la Dra. Martha Lucia ofrece atención integral y personalizada para niños desde recién nacidos hasta adolescentes. 
+            Bienvenid@!, La Dra. Martha Lucia Causil ofrece atención integral y personalizada para niños desde recién nacidos hasta adolescentes. 
             Con años de experiencia y un enfoque humano, su objetivo es brindar tranquilidad a las familias y guiar el desarrollo saludable de los más pequeños. 
             Tu hijo está en las mejores manos!
           </p>

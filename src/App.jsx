@@ -10,6 +10,7 @@ import { AdminPage } from './pages/AdminPage'
 import { CitasPage } from './pages/CitasPage'
 import { PacientesPage } from "./pages/PacientesPage"
 import { DiagnosticoPage } from './pages/DiagnosticoPage'
+import { Form_Paciente } from './pages/Form_Paciente'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <Route path='/login-user' element = {<Login_UserPage/>}></Route>
         <Route path='/registrar-user' element = {<Registrar_userPage/>}></Route>
         <Route path='/login-admin' element = {<Login_admin/>}></Route>
+        <Route path='/form-paciente' element={<Form_Paciente/>}></Route>
         <Route path='/admin' element={<AdminPage/>}></Route>
         <Route path='/citas' element={<CitasPage/>}></Route>
         <Route path='/pacientes' element={<PacientesPage/>}></Route>

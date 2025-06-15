@@ -5,47 +5,65 @@ import { UsuarioContext } from "../context/Usuario.Context";
 export const Main_loginUser = ({estado}) => {
 
   const [nombre, setNombre] = useState("");
-  const [contrasena, setContrasena] = useState("");
+  const [cedula , setcedula] = useState("");
+  const [pass, setPass] = useState("");
   const navigate = useNavigate();
-  const {registrarUsuario} = useContext(UsuarioContext);
+  const {loginUsuario} = useContext(UsuarioContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes manejar el envío, por ejemplo, llamar a una API o validar
-    alert(`Nombre: ${nombre} \n Contraseña: ${contrasena}`);
-    setNombre("");
-    setContrasena("");
 
     // antes de hacer cualquier reedireccion debemos validar el estado
     if(estado === "user"){
-        navigate("/");       
+
+        if(cedula !== "" && pass !== ""){
+          const user ={
+            cedula : cedula,
+            pass : pass
+          }
+          console.log(user);
+          loginUsuario(user);
+          setcedula("");
+          setPass("");
+        }else{
+          alert("Todos los campos son requeridos");
+        }      
     } else if(estado === "admin"){
         navigate("/admin");
     }
   };
 
+  /**
+   * @param {string} estado
+   * @returns {string}
+   * @description Verifica el estado y retorna el nombre del campo requerido
+   */
+  const verfEstado = (estado) =>{
+    return estado == "user" ? "Cedula" : "Nombre";
+  }
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <form onSubmit={handleSubmit} className=" w-[40%] p-8  rounded-lg shadow-md border border-[#d9d9d9] ">
         <div className="mb-4">
-          <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">Nombre</label>
+          <label htmlFor={verfEstado(estado)} className="block text-sm font-medium text-gray-700">{verfEstado(estado)}</label>
           <input
-            id="nombre"
+            id={verfEstado(estado)}
             type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            placeholder="Nombre"
+            value={ estado == "user"? cedula : nombre}
+            onChange={(estado == "user" ? ((e)=> setcedula(e.target.value)) : (e) => setNombre(e.target.value))}
+            placeholder={verfEstado(estado)}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-primary"
             required
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="contrasena" className="block text-sm font-medium text-gray-700">Contraseña</label>
+          <label htmlFor="pass" className="block text-sm font-medium text-gray-700">Contraseña</label>
           <input
-            id="contrasena"
+            id="pass"
             type="password"
-            value={contrasena}
-            onChange={(e) => setContrasena(e.target.value)}
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
             placeholder="Contraseña"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-primary"
             required
