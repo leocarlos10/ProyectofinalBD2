@@ -11,6 +11,9 @@ const UsuarioContext = createContext();
     const [nombreUsuario, setNombreUsuario] = useState(localStorage.getItem("nombreU"));
     const [token, setToken] = useState( localStorage.getItem("swtU"));
     const estaLogueado = !!token && !!nombreUsuario;
+    const [listaCitas, setListaCitas] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const navigate = useNavigate();
 
     const getHeaders = ()=> {
@@ -79,6 +82,32 @@ const UsuarioContext = createContext();
         }
     }
 
+    const getCitasAgendadas = async (cedula)=>{
+        try {
+            const request = await fetch(`/api/citas/get-cita-usuario/${cedula}`, {
+                method : 'GET',
+                headers : getHeaders()
+            })
+
+            const response = await request.json();
+
+            if(request.status == 200){
+                setListaCitas(response.citas);
+                setLoading(true);
+                setError(false);
+            } else if (request.status == 404) {
+                console.log(response.mensaje);
+            } else if (request.status == 500) {
+                console.log(response.mensaje);
+            } else if (!request.ok) { 
+                console.log("Error de cualquier tipo HTTP");
+            }
+        } catch (error) {
+            console.log(error);
+            setError(true);
+        }
+    }
+
     
     
     return(
@@ -87,6 +116,10 @@ const UsuarioContext = createContext();
             loginUsuario,
             estaLogueado,
             nombreUsuario,
+            getCitasAgendadas,
+            listaCitas,
+            loading,
+            error
             }}>
             {children}
         </UsuarioContext.Provider>

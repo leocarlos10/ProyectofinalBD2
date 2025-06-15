@@ -72,7 +72,7 @@ export const Header = ({visibilidad_Links}) => {
                 {
                     estaLogueado && (
                     <li>
-                        <Link className="hover:text-slate-50" to="/">
+                        <Link className="hover:text-slate-50" to="/citas-agendadas">
                             citas agendadas
                         </Link>
                     </li>
@@ -94,7 +94,7 @@ export const Header = ({visibilidad_Links}) => {
                 {
                     estaLogueado && (
                     <li>
-                        <Link className="hover:text-slate-50" to="/">
+                        <Link className="hover:text-slate-50" to="/citas-agendadas">
                             citas agendadas
                         </Link>
                     </li>

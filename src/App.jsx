@@ -11,6 +11,7 @@ import { CitasPage } from './pages/CitasPage'
 import { PacientesPage } from "./pages/PacientesPage"
 import { DiagnosticoPage } from './pages/DiagnosticoPage'
 import { Form_Paciente } from './pages/Form_Paciente'
+import { CitasAgendadas } from './pages/CitasAgendadas'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <Route path='/cursos' element={<CursosPage/>}/>
         <Route path='/login-user' element = {<Login_UserPage/>}></Route>
         <Route path='/registrar-user' element = {<Registrar_userPage/>}></Route>
+        <Route path='/citas-agendadas' element={<CitasAgendadas/>}></Route>
         <Route path='/login-admin' element = {<Login_admin/>}></Route>
         <Route path='/form-paciente' element={<Form_Paciente/>}></Route>
         <Route path='/admin' element={<AdminPage/>}></Route>
