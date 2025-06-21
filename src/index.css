@@ -44,3 +44,7 @@ html{
     transform: rotate(360deg);
   }
 }
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}

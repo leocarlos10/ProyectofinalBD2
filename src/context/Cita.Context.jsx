@@ -18,6 +18,13 @@ function CitaProvider({children}){
         };
     });
 
+    const [citasProximas, setCitasProximas] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+
+    const [ListaCitas, setListaCitas] = useState([]);
+
     const getHeaders_token = ()=> {
         const token = localStorage.getItem('swtU');
         return {
@@ -26,6 +33,15 @@ function CitaProvider({children}){
             'Authorization' : `Bearer ${token}`
         }
     }
+
+    const getHeaders = ()=> {
+
+        return {
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json',
+        }
+    }
+
 
     const actualizarCita = (datos) => {
         setCita((prevCita) => {
@@ -70,11 +86,106 @@ function CitaProvider({children}){
         }
     }
 
+    const getCitasProximas = async () => {
+        try {
+            const request = await fetch("/api/panel/citas-proximas", {
+                method : "GET",
+                headers : getHeaders()
+            })
+
+            const response = await request.json();
+
+            if(request.status == 200){
+                setCitasProximas(response.citas);
+                setLoading(true);
+                setError(false);
+            }else if(request.status == 404){
+                console.log(response.mensaje);
+                setLoading(true);
+            }else if(request.status == 500){
+                console.log(response.mensaje);
+                setLoading(true);
+            }else if(!request.ok){
+                console.log("Error de cualquier tipo HTTP");
+                setLoading(true);
+            }
+            
+        } catch (error) {
+            console.log(error);
+            setError(true);
+        }
+    }
+
+    const getCitas = async () => {
+        try {
+            const request = await fetch("/api/citas/con-usuario", {
+                method : "GET",
+                headers : getHeaders()
+            })
+
+            const response = await request.json();
+
+            if(request.status == 200){
+                setListaCitas(response.citas);
+                setLoading(true);
+                setError(false);
+            }else if(request.status == 404){
+                console.log(response.mensaje);
+                setLoading(true);
+            }else if(request.status == 500){
+                console.log(response.mensaje);
+                setLoading(true);
+            }else if(!request.ok){
+                console.log("Error de cualquier tipo HTTP");
+                setLoading(true);
+            }
+        } catch (error) {
+            console.log(error);
+            setError(true);
+        }
+    }
+
+    const eliminarCita = async (id_cita) => {
+        try {
+            const request = await fetch(`/api/citas/eliminar/${id_cita}`, {
+                method : "DELETE",
+                headers : getHeaders()
+            })
+
+            const response = await request.json();
+            let respuesta = false;
+            if(request.status == 200){
+                alert(response.mensaje);
+                respuesta = response.respuesta;
+            }else if(request.status == 404){
+                console.log(response.mensaje);
+                respuesta = response.respuesta;
+            }else if(request.status == 500){
+                console.log(response.mensaje);
+                respuesta = response.respuesta;
+            }else if(!request.ok){
+                console.log("Error de cualquier tipo HTTP");
+                respuesta = response.respuesta;
+            }
+            return respuesta;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
     return(
         <CitaContext.Provider value={{
             cita,
             actualizarCita,
-            solicitarCita
+            solicitarCita,
+            citasProximas,
+            getCitasProximas,
+            loading,
+            error,
+            ListaCitas,
+            getCitas,
+            eliminarCita
         }}>
             {children}
         </CitaContext.Provider>

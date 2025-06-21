@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UsuarioContext } from "../context/Usuario.Context";
+import { PediatraContext } from "../context/Pediatra.Context";
 
 export const Main_loginUser = ({estado}) => {
 
@@ -9,8 +10,9 @@ export const Main_loginUser = ({estado}) => {
   const [pass, setPass] = useState("");
   const navigate = useNavigate();
   const {loginUsuario} = useContext(UsuarioContext);
+  const {loginPediatra} = useContext(PediatraContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // antes de hacer cualquier reedireccion debemos validar el estado
@@ -29,7 +31,24 @@ export const Main_loginUser = ({estado}) => {
           alert("Todos los campos son requeridos");
         }      
     } else if(estado === "admin"){
-        navigate("/admin");
+
+      if(nombre !== "" && pass !== ""){
+        const pediatra ={
+          usuario: nombre,
+          pass : pass
+        }
+        console.log(pediatra);
+        const respuesta = await loginPediatra(pediatra);
+        if(respuesta){
+          setNombre("");
+          setPass("");
+          navigate("/admin");
+        } else {
+          alert("Credenciales incorrectas");
+        }
+      }else{
+        alert("Todos los campos son requeridos");
+      }    
     }
   };
 

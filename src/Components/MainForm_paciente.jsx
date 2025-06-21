@@ -3,7 +3,8 @@ import { CitaContext } from '../context/Cita.Context';
 import { useNavigate } from 'react-router-dom';
 
 export const MainForm_paciente = () => {
-  const { actualizarCita, solicitarCita } = useContext(CitaContext);
+  
+  const { actualizarCita, solicitarCita, cita } = useContext(CitaContext);
   const navigate = useNavigate();
   const [datos, setDatos] = useState({
     motivoC:  '',
@@ -18,21 +19,37 @@ export const MainForm_paciente = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  /**
+   * @description: Envia la cita al backend, siempre y cuando los campos
+   * de este formulario esten llenos. si no no hace nada.
+   * porque quiere decir que el cambio en cita fue en el otro form
+   * el de solcitar cita.
+   * */ 
+  useEffect(() => {
+    const enviarCita = async () => {
+      // Verificamos que todos los campos necesarios estén presentes
+      if (cita.motivoC && cita.fechaU_Valoracion && cita.remitente) {
+        const respuesta = await solicitarCita();
+        if (respuesta) {
+          alert('Cita registrada correctamente');
+          navigate('/');
+        } else {
+          alert('Error al registrar la cita');
+        }
+      }
+    };
+    enviarCita();
+  }, [cita]);
+
+
+
+  const handleSubmit = async  (e) => {
     e.preventDefault();
     const datos_completos = {
       ...datos,
       cedula_usuario: localStorage.getItem('cedulaU')
     }
-    actualizarCita(datos_completos);
-
-    const respuesta = await solicitarCita();
-    if (respuesta) {
-      alert('Cita registrada correctamente');
-      navigate('/');
-    }else{
-      alert('Error al registrar la cita');
-    }
+      actualizarCita(datos_completos);
   };
 
   return (

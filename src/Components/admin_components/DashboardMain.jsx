@@ -1,106 +1,117 @@
-
-
-const citas = [
-  {
-    nombre: "Lucas Silva",
-    fecha: "2024-07-20",
-    hora: "10:00 AM",
-    motivo: "Chequeo de Rutina",
-    motivoLink: "#"
-  },
-  {
-    nombre: "Sofía Castro",
-    fecha: "2024-07-21",
-    hora: "11:30 AM",
-    motivo: "Vacunación",
-    motivoLink: "#"
-  },
-  {
-    nombre: "Mateo Herrera",
-    fecha: "2024-07-22",
-    hora: "09:00 AM",
-    motivo: "Visita de Seguimiento",
-    motivoLink: "#"
-  },
-];
-
-const diagnosticos = [
-  {
-    nombre: "Isabella Torres",
-    diagnostico: "Resfriado Común",
-    diagnosticoLink: "#",
-    fecha: "2024-07-15"
-  },
-  {
-    nombre: "Daniel Pérez",
-    diagnostico: "Infección de Oído",
-    diagnosticoLink: "#",
-    fecha: "2024-07-16"
-  },
-  {
-    nombre: "Valentina Gómez",
-    diagnostico: "Alergias",
-    diagnosticoLink: "#",
-    fecha: "2024-07-17"
-  },
-];
+import { useContext } from "react";
+import { CitaContext } from "../../context/Cita.Context";
+import { useEffect } from "react";
+import { DiagnosticoContext } from "../../context/Diagnostico.Context";
 
 export function DashboardMain() {
+
+  const {citasProximas, getCitasProximas, loading, error} = useContext(CitaContext);
+  const {diagnosticosRecientes, getDiagnosticosrecientes, loadingD, errorD} = useContext(DiagnosticoContext);
+
+  useEffect(() => {
+    getCitasProximas();
+    getDiagnosticosrecientes();
+  }, []);
+
+
+
+  const cont_citas = citasProximas.map((cita) => (
+    <tr key={cita.id_cita} className="border-b last:border-b-0 hover:bg-gray-50">
+      <td className="w-1/4 py-2 px-4 text-center">{cita.cedulaUsuario}</td>
+      <td className="w-1/4 py-2 px-4 text-center">
+        <a href="#" className="text-[#7c3aed] hover:underline">{cita.fechaHora}</a>
+      </td>
+      <td className="w-1/4 py-2 px-4 text-center">{cita.servicio}</td>
+      <td className="w-1/4 py-2 px-4 text-center">
+        <span className="text-[#7c3aed] cursor-pointer hover:underline">{cita.estado}</span>
+      </td>
+    </tr>
+  ))
+
+  const cont_diagnostico = diagnosticosRecientes?.map((object) => (
+    <tr key={object.diagnostico.id_diagnostico} className="border-b last:border-b-0 hover:bg-gray-50">
+      <td className="w-1/3 py-2 px-4 text-center">
+        {`${object.usuario.nombre} ${object.usuario.apellido}`}
+      </td>
+      <td className="w-1/3 py-2 px-4 text-center">
+        <a href="#" className="text-[#7c3aed] hover:underline">
+          {object.diagnostico.observaciones}
+        </a>
+      </td>
+      <td className="w-1/3 py-2 px-4 text-center">
+        {object.diagnostico.fecha}
+      </td>
+    </tr>
+  ));
+
+
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div className="bg-[#b692d6] rounded-t-lg px-8 py-4 mb-8">
         <h1 className="text-2xl font-bold text-white">Panel</h1>
       </div>
-      <div className="px-8">
+      <div className="px-8  p-x-10 p-y-10">
         {/* Próximas Citas */}
         <h2 className="text-xl font-semibold mb-2">Próximas Citas</h2>
-        <div className="bg-white rounded-lg border border-gray-200 mb-8 overflow-x-auto">
-          <table className="min-w-full text-left">
-            <thead>
-              <tr className="border-b">
-                <th className="py-3 px-4 font-medium text-gray-700">Nombre del Paciente</th>
-                <th className="py-3 px-4 font-medium text-gray-700">Fecha de la Cita</th>
-                <th className="py-3 px-4 font-medium text-gray-700">Hora</th>
-                <th className="py-3 px-4 font-medium text-gray-700">Motivo</th>
-              </tr>
-            </thead>
+        {/* Tabla de cabecera */}
+        <table className="min-w-full table-fixed divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr className="border-b">
+              <th className="w-1/4 py-3 px-4 font-medium text-gray-700">Cedula del Paciente</th>
+              <th className="w-1/4 py-3 px-4 font-medium text-gray-700">Fecha de la Cita</th>
+              <th className="w-1/4 py-3 px-4 font-medium text-gray-700">servicio</th>
+              <th className="w-1/4 py-3 px-4 font-medium text-gray-700">estado</th>
+            </tr>
+          </thead>
+        </table>
+        {/* Contenedor con scroll */}
+        <div className="max-h-96 overflow-y-auto scrollbar-hide" id="table-scroll">
+          <table className="min-w-full table-fixed divide-y divide-gray-200">
             <tbody>
-              {citas.map((cita, idx) => (
-                <tr key={idx} className="border-b last:border-b-0 hover:bg-gray-50">
-                  <td className="py-2 px-4">{cita.nombre}</td>
-                  <td className="py-2 px-4">
-                    <a href={cita.motivoLink} className="text-[#7c3aed] hover:underline">{cita.fecha}</a>
-                  </td>
-                  <td className="py-2 px-4">{cita.hora}</td>
-                  <td className="py-2 px-4">
-                    <span className="text-[#7c3aed] cursor-pointer hover:underline">{cita.motivo}</span>
-                  </td>
-                </tr>
-              ))}
+            {
+                error ? 
+                    <h2>Tenemos un Error, por favor ingrese mas tarde</h2> 
+                : !loading ?
+                  <div className="spinner-container">
+                    <div className="spinner"></div>
+                  </div>
+                : citasProximas.length > 0 ? 
+                  cont_citas
+                :
+                  <h2>No hay citas agendadas</h2>
+              }
             </tbody>
           </table>
         </div>
+
         {/* Diagnósticos Recientes */}
         <h2 className="text-xl font-semibold mb-2">Diagnósticos Recientes</h2>
-        <div className="bg-white rounded-lg border border-gray-200 overflow-x-auto">
-          <table className="min-w-full text-left">
-            <thead>
-              <tr className="border-b">
-                <th className="py-3 px-4 font-medium text-gray-700">Nombre del Paciente</th>
-                <th className="py-3 px-4 font-medium text-gray-700">Diagnóstico</th>
-                <th className="py-3 px-4 font-medium text-gray-700">Fecha</th>
-              </tr>
-            </thead>
+        {/* Tabla de cabecera */}
+        <table className="min-w-full table-fixed divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr className="border-b">
+              <th className="w-1/3 py-3 px-4 font-medium text-gray-700">Nombre del Paciente</th>
+              <th className="w-1/3 py-3 px-4 font-medium text-gray-700">Diagnóstico</th>
+              <th className="w-1/3 py-3 px-4 font-medium text-gray-700">Fecha</th>
+            </tr>
+          </thead>
+        </table>
+        {/* Contenedor con scroll */}
+        <div className="max-h-96 overflow-y-auto scrollbar-hide" id="table-scroll">
+          <table className="min-w-full table-fixed divide-y divide-gray-200">
             <tbody>
-              {diagnosticos.map((dx, idx) => (
-                <tr key={idx} className="border-b last:border-b-0 hover:bg-gray-50">
-                  <td className="py-2 px-4">{dx.nombre}</td>
-                  <td className="py-2 px-4">
-                    <a href={dx.diagnosticoLink} className="text-[#7c3aed] hover:underline">{dx.diagnostico}</a>
-                  </td>
-                  <td className="py-2 px-4">{dx.fecha}</td>
-                </tr>
-              ))}
+            {
+                errorD ? 
+                    <h2>Tenemos un Error, por favor ingrese mas tarde</h2> 
+                : !loadingD ?
+                  <div className="spinner-container">
+                    <div className="spinner"></div>
+                  </div>
+                : diagnosticosRecientes.length > 0 ?
+                  cont_diagnostico
+                :
+                  <h2>No hay Diagnosticos</h2>
+              }
             </tbody>
           </table>
         </div>

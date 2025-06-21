@@ -8,13 +8,19 @@ const UsuarioContext = createContext();
     en caso de que el usuario recargue la pagina.
  */
  function UsuarioProvider({children}){
+
     const [nombreUsuario, setNombreUsuario] = useState(localStorage.getItem("nombreU"));
     const [token, setToken] = useState( localStorage.getItem("swtU"));
     const estaLogueado = !!token && !!nombreUsuario;
+
     const [listaCitas, setListaCitas] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const navigate = useNavigate();
+
+    const [listaPacientes, setListaPacientes] = useState([]);
+    const [loadingP, setLoadingP] = useState(false);
+    const [errorP, setErrorP] = useState(false);
 
     const getHeaders = ()=> {
         return {
@@ -97,14 +103,47 @@ const UsuarioContext = createContext();
                 setError(false);
             } else if (request.status == 404) {
                 console.log(response.mensaje);
+                setLoading(true);
             } else if (request.status == 500) {
                 console.log(response.mensaje);
+                setLoading(true);
+                setError(true);
+                
             } else if (!request.ok) { 
                 console.log("Error de cualquier tipo HTTP");
             }
         } catch (error) {
             console.log(error);
             setError(true);
+        }
+    }
+
+
+    const getPacientes = async () => {
+        try {
+            const request = await fetch("/api/pacientes/ultima-cita", {
+                method : "GET",
+                headers : getHeaders()
+            })
+
+            const response = await request.json();
+
+            if(request.status == 200){
+                setListaPacientes(response.pacientes);
+                setLoadingP(true);
+                setErrorP(false);
+            } else if(request.status == 404){
+                console.log(response.mensaje);
+                setLoadingP(true);
+            } else if(request.status == 500){
+                console.log(response.mensaje);
+                setLoadingP(true);
+            } else if(!request.ok){
+                console.log("Error de cualquier tipo HTTP");
+            }
+        } catch (error) {
+            console.log(error);
+            setErrorP(true);
         }
     }
 
@@ -119,7 +158,11 @@ const UsuarioContext = createContext();
             getCitasAgendadas,
             listaCitas,
             loading,
-            error
+            error,
+            listaPacientes,
+            getPacientes,
+            loadingP,
+            errorP
             }}>
             {children}
         </UsuarioContext.Provider>

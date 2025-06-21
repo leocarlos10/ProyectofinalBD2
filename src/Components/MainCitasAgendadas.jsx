@@ -15,8 +15,8 @@ export const MainCitasAgendadas = () => {
         return(
             <tr key={cita.id_cita}>
                 <td className="w-1/5 px-6 py-4 whitespace-nowrap">{nombrePaciente}</td>
-                <td className="w-1/5 px-6 py-4 whitespace-nowrap text-blue-500">{cita.fechaHora}</td>
-                <td className="w-1/5 px-6 py-4 whitespace-nowrap text-blue-500">{cita.tipo_cita}</td>
+                <td className="w-1/5 px-6 py-4 whitespace-nowrap text-blue-500 ">{cita.fechaHora}</td>
+                <td className="w-1/5 px-6 py-4 whitespace-nowrap text-blue-500 ">{cita.tipo_cita}</td>
                 <td className="w-1/5 px-6 py-4 whitespace-nowrap text-blue-500">{cita.estado}</td>
                 <td className="w-1/5 px-6 py-4 whitespace-nowrap">{cita.servicio}</td>
               </tr>
@@ -29,7 +29,7 @@ export const MainCitasAgendadas = () => {
       <table className="min-w-full table-fixed divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
-            <th className="w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider  ">
               Nombre del Paciente
             </th>
             <th className="w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -52,16 +52,16 @@ export const MainCitasAgendadas = () => {
         <table className="min-w-full table-fixed divide-y divide-gray-200">
           <tbody className="bg-white divide-y divide-gray-200">
           {
-                error ? 
-                    <h2>Tenemos un Error, por favor ingrese mas tarde</h2> 
-                : !loading ?
-                  <div className="spinner-container">
-                    <div className="spinner"></div>
-                  </div>
-                : listaCitas.length > 0 ? 
+                 error ? (
+                    <h2>Tenemos un Error, por favor ingrese mas tarde</h2>
+                ) :!loading ? (
+                    <div className="spinner-container">
+                        <div className="spinner"></div>
+                    </div>
+                ) : listaCitas.length > 0 ? 
                   cont_citas
                 :
-                  <h2>No hay citas agendadas</h2>
+                  <h2 className='text-center text-gray-700'>No hay citas agendadas</h2>
               }
           </tbody>
         </table>
