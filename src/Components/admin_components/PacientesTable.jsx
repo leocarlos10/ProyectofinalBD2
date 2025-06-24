@@ -22,13 +22,13 @@ export const PacientesTable = ({id_paciente, paciente}) => {
     
   return (
     <tr key={id_paciente} className="border-b last:border-b-0 hover:bg-gray-50">
-    <td className="w-1/5 py-2 px-4">{paciente.nombre}</td>
-    <td className="w-1/5 py-2 px-4 text-gray-700">{paciente.fechaNacimiento}</td>
-    <td className="w-1/5 py-2 px-4">
-      <span className="text-gray-700">{paciente.telefono}</span>
+    <td className="w-1/5 py-2 px-4 text-center">{paciente.nombre} {paciente.apellido}</td>
+    <td className="w-1/5 py-2 px-4 text-gray-700 text-center">{paciente.fechaNacimiento}</td>
+    <td className="w-1/5 py-2 px-4 text-center">
+      <span className="text-gray-700 text-center">{paciente.telefono}</span>
     </td>
-    <td className="w-1/5 py-2 px-4">
-      <span className="'text-gray-700'">{paciente.email}</span>
+    <td className="w-1/5 py-2 px-4 text-center">
+      <span className="text-gray-700">{paciente.email}</span>
     </td>
     <td className="w-1/5 py-2 px-4">
       <div className="flex gap-2">
@@ -108,8 +108,10 @@ export const PacientesTable = ({id_paciente, paciente}) => {
           </div>
 
           {/* Botones de acción */}
-          <div className="flex justify-end items-center mt-8 pt-4 border-t border-gray-200">
-            <button className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">Editar Registro</button>
+          <div className="flex justify-end items-center mt-3 pt-4 border-t border-gray-200">
+            <button className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors cursor-pointer" 
+            onClick={cerrarModal}
+            >Cerrar</button>
           </div>
         </div>
       </dialog>

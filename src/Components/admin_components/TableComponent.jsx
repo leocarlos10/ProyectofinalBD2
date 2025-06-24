@@ -18,7 +18,7 @@ private String cedulaUsuario;
 
 
 export const TableComponent = ({pagina}) => {
-  const {ListaCitas, getCitas, loading, error, eliminarCita} = useContext(CitaContext);
+  const {ListaCitas, getCitas, loading, error, eliminarCita, ActualizarCita} = useContext(CitaContext);
   const {listaPacientes, getPacientes, loadingP, errorP} = useContext(UsuarioContext);
   const {diagnosticos, getDiagnosticos, loadingD2, errorD2, eliminarDiagnostico, crearDiagnostico} = useContext(DiagnosticoContext);
   const dialogRef = useRef(null);
@@ -49,6 +49,14 @@ export const TableComponent = ({pagina}) => {
       const respuesta = await crearDiagnostico(newDiagnostico);
       if(respuesta){
         cerrarModal();
+        setNewDiagnostico({
+          cedulaUsuario: "",
+          tratamiento: "",
+          observaciones: "",
+          notaCorta: "",
+          notaLarga: "",
+          fecha: new Date().toISOString().split('T')[0]
+        });
         getDiagnosticos();
       }else {
         console.log("Error al crear el diagnostico");
@@ -95,7 +103,7 @@ export const TableComponent = ({pagina}) => {
 
   const contenido_citas = filteredCitas.map((object) => {
     return (
-      <CitasTable key={object.cita.id_cita} object={object} eliminarcita={eliminarCita}  getCitas={getCitas} />
+      <CitasTable key={object.cita.id_cita} object={object} eliminarcita={eliminarCita}  getCitas={getCitas} ActualizarCita={ActualizarCita} />
     )
   });
 

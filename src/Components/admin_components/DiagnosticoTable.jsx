@@ -16,9 +16,9 @@ export const DiagnosticoTable = ({id_diagnostico, object, eliminardiagnostico, g
 
   return (
         <tr key={id_diagnostico} className="border-b last:border-b-0 hover:bg-gray-50">
-        <td className="w-1/6 py-2 px-4 text-center ">{object.usuario.nombre} {object.usuario.apellido}</td>
-        <td className="w-1/6 py-2 px-4 text-center  text-[#7c3aed] hover:underline cursor-pointer">{object.diagnostico.observaciones}</td>
-        <td className="w-1/6 py-2 px-4 text-center ">
+        <td className="w-1/5 py-2 px-4  ">{object.usuario.nombre} {object.usuario.apellido}</td>
+        <td className="w-1/5 py-2 px-4   text-[#7c3aed] hover:underline cursor-pointer">{object.diagnostico.observaciones}</td>
+        <td className="w-1/5 py-2 px-4 ">
         <span className="text-gray-700">{object.diagnostico.tratamiento}</span>
         </td>
         <td className="w-1/6 py-2 px-4 text-center  ">

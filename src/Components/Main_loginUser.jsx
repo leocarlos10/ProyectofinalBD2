@@ -23,10 +23,15 @@ export const Main_loginUser = ({estado}) => {
             cedula : cedula,
             pass : pass
           }
-          console.log(user);
-          loginUsuario(user);
+
+         const respuesta = await  loginUsuario(user);
+         if(respuesta){
+          alert('Inicio de sesion exitoso Bienvenido ');
           setcedula("");
           setPass("");
+         }else{
+          alert("Usuario o contraseña incorrectos");
+         }
         }else{
           alert("Todos los campos son requeridos");
         }      

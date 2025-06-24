@@ -174,6 +174,36 @@ function CitaProvider({children}){
         }
     }
 
+    const ActualizarCita = async (cita) => {
+        try {
+
+            const request = await fetch("/api/citas/actualizar", {
+                method : "PUT",
+                headers : getHeaders(),
+                body : JSON.stringify(cita)
+            })
+
+            const response = await request.json();
+            let respuesta = false;
+            if(request.status == 200){
+                respuesta = response.respuesta;
+            }else if(request.status == 400){
+                console.log(response.mensaje);
+                respuesta = response.respuesta;
+            }else if(request.status == 500){
+                console.log(response.mensaje);
+                respuesta = response.respuesta;
+            }else if(!request.ok){
+                console.log("Error de cualquier tipo HTTP");
+                respuesta = response.respuesta;
+            }
+            return respuesta;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
     return(
         <CitaContext.Provider value={{
             cita,
@@ -185,7 +215,8 @@ function CitaProvider({children}){
             error,
             ListaCitas,
             getCitas,
-            eliminarCita
+            eliminarCita,
+            ActualizarCita
         }}>
             {children}
         </CitaContext.Provider>

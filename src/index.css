@@ -30,6 +30,13 @@ html{
   height: 100px;
 }
 
+#estado{
+  padding: 6px 4px;
+  border-radius: 20px;
+  background-color: var(--color-stone-100);
+  outline: none;
+}
+
 .spinner {
   width: 40px;
   height: 40px;

@@ -67,24 +67,31 @@ const UsuarioContext = createContext();
             })
 
             const response = await request.json();
-
+            let respuesta = false;
             if(request.status == 200){
                 localStorage.setItem("swtU", response.token);
                 localStorage.setItem("nombreU", response.nombre);
                 localStorage.setItem("cedulaU", response.cedula);
                 setToken(response.token);
                 setNombreUsuario(response.nombre);
+                respuesta = true;
                 navigate("/");
             } else if (request.status == 400) {
-                alert(response.mensaje);
+                console.log(response.mensaje);
+                respuesta = false;
             } else if (request.status == 500) {
-                alert(response.mensaje);
+                console.log(response.mensaje);
+                respuesta = false;
             } else if (!request.ok) {
                 console.log("Error de cualquier tipo HTTP");
+                respuesta = false;
             }
+
+            return respuesta;
             
         } catch (error) {
             console.log(error);
+            return false;
         }
     }
 

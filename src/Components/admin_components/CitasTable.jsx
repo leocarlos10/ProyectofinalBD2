@@ -1,40 +1,47 @@
-
+import { useState } from 'react';
 import deleteIcon from '../../assets/delete.svg';
 
-/* "citas": [
-    {
-      "cita": {
-        "id_cita": 25,
-        "fechaHora": "2025-06-14T19:28:00",
-        "estado": "pendiente",
-        "motivoC": "nutricional",
-        "remitente": "leo",
-        "fechaU_Valoracion": "2025-06-14",
-        "cedula_usuario": "1001",
-        "tipo_cita": "PRECENSIAL",
-        "servicio": null
-      },
-      "usuario": {
-        "cedula": "1001",
-        "nombre": "Ana",
-        "apellido": "García",
-        "correo": "ana@example.com",
-        "telefono": "300000001",
-        "ciudad": "Montería",
-        "pass": null,
-        "fechaNacimiento": "1990-03-15"
-      }
-    }*/
 
-export const CitasTable = ({id_cita, object, eliminarcita, getCitas}) => {
+export const CitasTable = ({id_cita, object, eliminarcita, getCitas, ActualizarCita}) => {
+
+  const [newCita, setNewCita] = useState(object.cita)
+
 
     const eliminarCita = async() => {
-        const respuesta = await eliminarcita(cita.id_cita);
+        const respuesta = await eliminarcita(object.cita.id_cita);
         if(respuesta){
             getCitas();
         }else{
             alert("Error al eliminar la cita");
         }
+    }
+
+    /* El cambio de estado de la cita 
+      se debe realizar en 3 pasos para evitar problemas 
+      en la actualizacion de la cita
+    */
+    const cambiarEstado = async (e) => {
+      
+      const nuevoEstado = e.target.value;
+      
+      const citaActualizada = {
+        ...newCita,
+        estado : nuevoEstado
+      };
+      
+      setNewCita(citaActualizada);
+      
+      try {
+        const respuesta = await ActualizarCita(citaActualizada);
+        if(respuesta){
+          getCitas();
+        } else {
+          alert("Error al actualizar el estado de la cita");
+        }
+      } catch (error) {
+        console.error("Error al actualizar cita:", error);
+        alert("Error al actualizar el estado de la cita");
+      }
     }
 
   return (
@@ -45,13 +52,19 @@ export const CitasTable = ({id_cita, object, eliminarcita, getCitas}) => {
         <span className="text-gray-700 ">{object.cita.servicio}</span>
       </td>
       <td className="w-1/5 py-2 px-4 text-center">
-        <span className={
+      
+        <select value={object.cita.estado} className={
           object.cita.estado === 'pendiente' ? 'text-gray-700' :
           object.cita.estado === 'realizada' ? 'text-green-600' :
           object.cita.estado === 'reprogramada' ? 'text-yellow-600' :
           object.cita.estado === 'cancelada' ? 'text-red-600' :
-          'text-gray-700 '
-        }>{object.cita.estado}</span>
+          'text-gray-700'
+        } id='estado' onChange={cambiarEstado} >
+          <option value="pendiente" className='text-gray-700' >Pendiente</option>
+          <option value="realizada" className='text-green-600' >Realizada</option>
+          <option value="reprogramada" className='text-yellow-600' >Reprogramada</option>
+          <option value="cancelada" className='text-red-600' >Cancelada</option>
+        </select>
       </td>
       <td className="w-1/5 py-2 px-4">
         <div className="flex gap-2 justify-center">

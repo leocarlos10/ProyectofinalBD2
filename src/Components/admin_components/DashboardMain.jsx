@@ -13,11 +13,23 @@ export function DashboardMain() {
     getDiagnosticosrecientes();
   }, []);
 
-
+ /*  {
+    "id_cita": 42,
+    "fechaHora": "2025-06-24 11:40:00",
+    "estado": "pendiente",
+    "motivoC": "nutricion deportiva",
+    "remitente": "dr leo",
+    "tipoCita": "PRECENSIAL",
+    "nombreUsuario": "Jorge",
+    "apellidoUsuario": "Mejía",
+    "cedulaUsuario": "1008",
+    "servicio": "Visita Nutricion y dietética : $90,000"
+  }, */
 
   const cont_citas = citasProximas.map((cita) => (
     <tr key={cita.id_cita} className="border-b last:border-b-0 hover:bg-gray-50">
       <td className="w-1/4 py-2 px-4 text-center">{cita.cedulaUsuario}</td>
+      <td className="w-1/4 py-2 px-4 text-center">{cita.nombreUsuario} {cita.apellidoUsuario}</td>
       <td className="w-1/4 py-2 px-4 text-center">
         <a href="#" className="text-[#7c3aed] hover:underline">{cita.fechaHora}</a>
       </td>
@@ -58,6 +70,7 @@ export function DashboardMain() {
           <thead className="bg-gray-50">
             <tr className="border-b">
               <th className="w-1/4 py-3 px-4 font-medium text-gray-700">Cedula del Paciente</th>
+              <th className="w-1/4 py-3 px-4 font-medium text-gray-700">Nombre del Paciente</th>
               <th className="w-1/4 py-3 px-4 font-medium text-gray-700">Fecha de la Cita</th>
               <th className="w-1/4 py-3 px-4 font-medium text-gray-700">servicio</th>
               <th className="w-1/4 py-3 px-4 font-medium text-gray-700">estado</th>
