@@ -42,6 +42,7 @@ export const TableComponent = ({pagina}) => {
     dialogRef.current.close();
   }
 
+  /* como estamos obteniendo datos de un metodo que es asincrono, debemos usar async await */
   const handleSubmit = async (e) =>{
     e.preventDefault();
     const estaVacio = Object.values(newDiagnostico).some(valor => valor === "" || valor === null);
@@ -304,7 +305,6 @@ export const TableComponent = ({pagina}) => {
                   </div>
                 :
                   <h2 className='text-center text-gray-700'>No hay diagnósticos que coincidan con la búsqueda</h2>
-              
             )
             }
           </tbody>
