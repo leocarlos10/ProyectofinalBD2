@@ -5,16 +5,6 @@ import { UsuarioContext } from '../../context/Usuario.Context';
 import { PacientesTable } from './PacientesTable';
 import { DiagnosticoContext } from '../../context/Diagnostico.Context';
 import { DiagnosticoTable } from './DiagnosticoTable';
-import { HistoriaContext } from '../../context/HistoriaCli';
-
-/* 
-private String cedulaUsuario;
-    private String tratamiento;
-    private String observaciones;
-    private String notaCorta;
-    private String notaLarga;
-    private Date fecha;
-*/
 
 
 export const TableComponent = ({pagina}) => {

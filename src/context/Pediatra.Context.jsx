@@ -6,14 +6,14 @@ const PediatraContext = createContext();
 
     const loginPediatra = async (pediatra) => {
         
-        const request =  await fetch("/api/pediatra/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'Content-Type' : 'application/json',
-            },
-            body: JSON.stringify(pediatra)
-        })
+        const request = await fetch("/api/pediatra/login", {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(pediatra),
+        });
         const response = await request.json();
         let respuesta = false;
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import panelIcon from "../../assets/panel.svg";
 import citasIcon from '../../assets/citas.svg';

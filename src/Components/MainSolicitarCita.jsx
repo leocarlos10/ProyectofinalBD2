@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import experienciaImg from '../assets/img-experiencia.jpg';
-import instagram from '../assets/instagram_light.svg';
+import instagram from '../assets/Instagram_light.svg';
 import youtube from '../assets/youtube.svg';
 import linkedin from '../assets/linkedin.svg';
 import { useNavigate } from "react-router-dom";

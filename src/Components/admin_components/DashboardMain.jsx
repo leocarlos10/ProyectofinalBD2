@@ -13,18 +13,6 @@ export function DashboardMain() {
     getDiagnosticosrecientes();
   }, []);
 
- /*  {
-    "id_cita": 42,
-    "fechaHora": "2025-06-24 11:40:00",
-    "estado": "pendiente",
-    "motivoC": "nutricion deportiva",
-    "remitente": "dr leo",
-    "tipoCita": "PRECENSIAL",
-    "nombreUsuario": "Jorge",
-    "apellidoUsuario": "Mejía",
-    "cedulaUsuario": "1008",
-    "servicio": "Visita Nutricion y dietética : $90,000"
-  }, */
 
   const cont_citas = citasProximas.map((cita) => (
     <tr key={cita.id_cita} className="border-b last:border-b-0 hover:bg-gray-50">
