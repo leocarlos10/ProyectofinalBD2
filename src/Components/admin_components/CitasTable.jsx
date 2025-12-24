@@ -13,6 +13,7 @@ export const CitasTable = ({id_cita, object, eliminarcita, getCitas, ActualizarC
             getCitas();
         }else{
             alert("Error al eliminar la cita");
+            getCitas();
         }
     }
 

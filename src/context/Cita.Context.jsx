@@ -155,7 +155,7 @@ function CitaProvider({children}){
             const response = await request.json();
             let respuesta = false;
             if(request.status == 200){
-                alert(response.mensaje);
+                console.log(response.mensaje);
                 respuesta = response.respuesta;
             }else if(request.status == 404){
                 console.log(response.mensaje);

@@ -11,6 +11,7 @@ export const DiagnosticoTable = ({id_diagnostico, object, eliminardiagnostico, g
             getDiagnosticos();
         }else{
             alert("Error al eliminar el diagnostico");
+            getDiagnosticos();
         }
     }
 
