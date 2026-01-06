@@ -1,5 +1,7 @@
 import { createContext, useState } from "react";
 
+/* de aqui para abajo falta por revisar y ajustar al nuevo backend. */
+
 const HistoriaContext = createContext();
 
 function HistoriaProvider({children}){

@@ -37,14 +37,14 @@ function DiagnosticoProvider({children}){
             const response = await request.json();
 
             if(request.status == 200){
-                setDiagnosticosRecientes(response.diagnosticos);
+                setDiagnosticosRecientes(response.data);
                 setLoadingD(true);
                 setErrorD(false);
             }else if(request.status == 404){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoadingD(true);
             }else if(request.status == 500){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoadingD(true);
             }else if(!request.ok){
                 console.log("Error de cualquier tipo HTTP");
@@ -70,14 +70,14 @@ function DiagnosticoProvider({children}){
             const response = await request.json();
 
             if(request.status == 200){
-                setDiagnosticos(response.diagnosticos);
+                setDiagnosticos(response.data);
                 setLoadingD2(true);
                 setErrorD2(false);
             }else if(request.status == 404){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoadingD2(true);
             }else if(request.status == 500){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoadingD2(true);
             }else if(!request.ok){
                 console.log("Error de cualquier tipo HTTP");
@@ -103,14 +103,14 @@ function DiagnosticoProvider({children}){
             const response = await request.json();
 
             if(request.status == 200){
-                setDiagnosticosPorCedula(response.diagnosticos);
+                setDiagnosticosPorCedula(response.data);
                 setLoadingD3(true);
                 setErrorD3(false);
             }else if(request.status == 404){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoadingD3(true);
             }else if(request.status == 500){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoadingD3(true);
             }else if(!request.ok){
                 console.log("Error de cualquier tipo HTTP");
@@ -135,14 +135,14 @@ function DiagnosticoProvider({children}){
             let respuesta = false;
 
             if(request.status == 200){
-                alert(response.mensaje);
-                respuesta = response.respuesta;
+                alert(response.responseMessage);
+                respuesta = response.data;
             }else if(request.status == 404){
-                console.log(response.mensaje);
-                respuesta = response.respuesta;
+                console.log(response.responseMessage);
+                respuesta = response.data;
             }else if(request.status == 500){
-                console.log(response.mensaje);
-                respuesta = response.respuesta;
+                console.log(response.responseMessage);
+                respuesta = response.data;
             }else if(!request.ok){
                 console.log("Error de cualquier tipo HTTP");
                 respuesta = false;
@@ -167,14 +167,14 @@ function DiagnosticoProvider({children}){
             const response = await request.json();
             let respuesta = false;
             if(request.status == 201){
-                alert(response.mensaje);
-                respuesta = response.respuesta;
+                alert(response.responseMessage);
+                respuesta = response.data;
             }else if(request.status == 400){
-                console.log(response.mensaje);
-                respuesta = response.respuesta;
+                console.log(response.responseMessage);
+                respuesta = response.data;
             }else if(request.status == 500){
-                console.log(response.mensaje);
-                respuesta = response.respuesta;
+                console.log(response.responseMessage);
+                respuesta = response.data;
             }else if(!request.ok){
                 console.log("Error de cualquier tipo HTTP");
                 respuesta = false;

@@ -67,13 +67,13 @@ function CitaProvider({children}){
             const response = await request.json();
             if(request.status == 200){
                 localStorage.removeItem('citaData');
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 respuesta = true;
             } else if (request.status == 400){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 respuesta = false;
             } else if (request.status == 500){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 respuesta = false;
             } else if (!request.ok){
                 console.log("Error de cualquier tipo HTTP");
@@ -96,14 +96,14 @@ function CitaProvider({children}){
             const response = await request.json();
 
             if(request.status == 200){
-                setCitasProximas(response.citas);
+                setCitasProximas(response.data);
                 setLoading(true);
                 setError(false);
             }else if(request.status == 404){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoading(true);
             }else if(request.status == 500){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoading(true);
             }else if(!request.ok){
                 console.log("Error de cualquier tipo HTTP");
@@ -126,14 +126,14 @@ function CitaProvider({children}){
             const response = await request.json();
 
             if(request.status == 200){
-                setListaCitas(response.citas);
+                setListaCitas(response.data);
                 setLoading(true);
                 setError(false);
             }else if(request.status == 404){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoading(true);
             }else if(request.status == 500){
-                console.log(response.mensaje);
+                console.log(response.responseMessage);
                 setLoading(true);
             }else if(!request.ok){
                 console.log("Error de cualquier tipo HTTP");
@@ -155,17 +155,17 @@ function CitaProvider({children}){
             const response = await request.json();
             let respuesta = false;
             if(request.status == 200){
-                console.log(response.mensaje);
-                respuesta = response.respuesta;
+                console.log(response.responseMessage);
+                respuesta = response.data;
             }else if(request.status == 404){
-                console.log(response.mensaje);
-                respuesta = response.respuesta;
+                console.log(response.responseMessage);
+                respuesta = response.data;
             }else if(request.status == 500){
-                console.log(response.mensaje);
-                respuesta = response.respuesta;
+                console.log(response.responseMessage);
+                respuesta = response.data;
             }else if(!request.ok){
                 console.log("Error de cualquier tipo HTTP");
-                respuesta = response.respuesta;
+                respuesta = response.data;
             }
             return respuesta;
         } catch (error) {
@@ -186,16 +186,16 @@ function CitaProvider({children}){
             const response = await request.json();
             let respuesta = false;
             if(request.status == 200){
-                respuesta = response.respuesta;
+                respuesta = response.data;
             }else if(request.status == 400){
-                console.log(response.mensaje);
-                respuesta = response.respuesta;
+                console.log(response.responseMessage);
+                respuesta = response.data;
             }else if(request.status == 500){
-                console.log(response.mensaje);
-                respuesta = response.respuesta;
+                console.log(response.responseMessage);
+                respuesta = response.data;
             }else if(!request.ok){
                 console.log("Error de cualquier tipo HTTP");
-                respuesta = response.respuesta;
+                respuesta = response.data;
             }
             return respuesta;
         } catch (error) {

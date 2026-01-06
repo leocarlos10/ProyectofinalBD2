@@ -69,11 +69,11 @@ const UsuarioContext = createContext();
             const response = await request.json();
             let respuesta = false;
             if(request.status == 200){
-                localStorage.setItem("swtU", response.token);
-                localStorage.setItem("nombreU", response.nombre);
-                localStorage.setItem("cedulaU", response.cedula);
-                setToken(response.token);
-                setNombreUsuario(response.nombre);
+                localStorage.setItem("swtU", response.data.token);
+                localStorage.setItem("nombreU", response.data.nombre);
+                localStorage.setItem("cedulaU", response.data.cedula);
+                setToken(response.data.token);
+                setNombreUsuario(response.data.nombre);
                 respuesta = true;
                 navigate("/");
             } else if (request.status == 400) {
@@ -105,7 +105,7 @@ const UsuarioContext = createContext();
             const response = await request.json();
 
             if(request.status == 200){
-                setListaCitas(response.citas);
+                setListaCitas(response.data.citas);
                 setLoading(true);
                 setError(false);
             } else if (request.status == 404) {
@@ -136,7 +136,7 @@ const UsuarioContext = createContext();
             const response = await request.json();
 
             if(request.status == 200){
-                setListaPacientes(response.pacientes);
+                setListaPacientes(response.data.pacientes);
                 setLoadingP(true);
                 setErrorP(false);
             } else if(request.status == 404){
